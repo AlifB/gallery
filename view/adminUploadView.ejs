@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs', {title: 'Galerie | Admin', stylePaths:
+['/plugins/photoswipe/photoswipe.css']}) %> <%- include('partials/navbar.ejs',
+{title: 'Galerie - Admin Upload', loggedIn: loggedIn}) %>
+
+<div class="uk-margin uk-margin-left uk-margin-right">
+    <div class="uk-flex uk-flex-middle">
+        <h2>Bild hochladen</h2>
+    </div>
+    <form action="/admin/upload" method="post" enctype="multipart/form-data">
+        <div class="uk-margin">
+            <div uk-form-custom>
+                <input type="file" aria-label="Dateiupload" name="image" required>
+                <button class="uk-button uk-button-default" type="button" tabindex="-1">Bild auswählen</button>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <div class="uk-form-label">Thumbnailausrichtung</div>
+            <div class="uk-form-controls">
+                <label><input class="uk-radio" type="radio" name="thumbnailAlignment" value="top"> Top</label><br>
+                <label><input class="uk-radio" type="radio" name="thumbnailAlignment" value="center" checked> Center</label><br>
+                <label><input class="uk-radio" type="radio" name="thumbnailAlignment" value="bottom"> Bottom</label>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <div class="uk-form-controls">
+                <input class="uk-input" type="submit" value="Hochladen">
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include('partials/footer.ejs') %>

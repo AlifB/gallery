@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Default Title' %></title>
+    <link rel="stylesheet" href="/plugins/uikit/css/uikit.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <% if (stylePaths && Array.isArray(stylePaths)) { %>
+      <% stylePaths.forEach(stylePath => { %>
+        <link rel="stylesheet" href="<%= stylePath %>">
+        <% }) %>
+    <% } %>
+    <script src="/plugins/uikit/js/uikit.min.js" defer></script>
+    <script src="/plugins/uikit/js/uikit-icons.min.js" defer></script>
+</head>
+<body>

@@ -1,0 +1,73 @@
+<%- include('partials/header.ejs', {title: 'Galerie | Admin', stylePaths:
+['/plugins/photoswipe/photoswipe.css']}) %> <%- include('partials/navbar.ejs',
+{title: 'Galerie - Admin', loggedIn: loggedIn}) %>
+
+<style>
+    .img-container {
+        width: 50px;
+        height: 50px;
+    }
+    td img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
+    span.uk-icon {
+        width: max-content;
+    }
+</style>
+
+<div class="uk-margin uk-margin-left uk-margin-right">
+    <div class="uk-flex uk-flex-middle">
+        <h2 class="uk-margin-remove">Hochgeladene Bilder</h2><a href="/admin/upload" class="uk-button uk-button-primary uk-margin-left"><span uk-icon="upload"></span> Bild hochladen</a>
+    </div>
+    <% if (images.length > 0) { %>
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+            <thead>
+                <tr>
+                    <th class="uk-table-shrink">Bild</th>
+                    <th>Link</th>
+                    <th class="uk-table-shrink">Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% images.forEach(image => { %>
+                <tr>
+                    <td><div class="img-container"><img src="<%= image.thumbnail %>" style="object-position: <%= image.thumbnailAlignment === 'top' ? 'top' : image.thumbAlign === 'bottom' ? 'bottom' : 'center' %>;"></div></td>
+                    <td class="uk-table-link">
+                        <a class="uk-link" href="<%= image.src %>"><%= image.src %></a>
+                    </td>
+                    <td>
+                        <a class="uk-button uk-button-danger delete-btn" data-image-id="<%= image.id %>"><span uk-icon="trash"></span></a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <% } else { %>
+    <p>Keine Bilder vorhanden.</p>
+    <% } %>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const imageId = button.getAttribute('data-image-id');
+                const response = await fetch(`/admin/delete/${imageId}`, {
+                    method: 'DELETE'
+                });
+
+                if(response.ok) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('partials/footer.ejs') %>

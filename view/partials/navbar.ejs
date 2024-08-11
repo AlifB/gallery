@@ -1,0 +1,49 @@
+<nav
+  class="uk-navbar-container uk-light"
+  style="background-color: rgb(25, 103, 193)"
+>
+  <div class="uk-container uk-container-expand">
+    <div uk-navbar>
+      <div class="uk-navbar-left">
+        <a
+          class="uk-navbar-toggle uk-navbar-toggle-animate uk-hidden@s"
+          uk-navbar-toggle-icon
+        ></a>
+        <a class="uk-navbar-item uk-logo" href="#"> <%= title %> </a>
+      </div>
+      <div class="uk-navbar-right uk-visible@s">
+        <% if (loggedIn) { %>
+            <a href="/logout" class="uk-button uk-button-secondary">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="uk-container uk-container-expand uk-hidden navbar-menu-mobile">
+    <div uk-navbar>
+      <div class="uk-navbar-left uk-padding-small uk-padding-remove-horizontal">
+        <% if (loggedIn) { %>
+            <a href="/logout" class="uk-button uk-button-secondary">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerButton = document.querySelector(".uk-navbar-toggle");
+    const navbarMenuMobile = document.querySelector(".navbar-menu-mobile");
+
+    hamburgerButton.addEventListener("click", () => {
+      if (navbarMenuMobile.classList.contains("uk-hidden")) {
+        hamburgerButton.setAttribute("aria-expanded", "true");
+        navbarMenuMobile.classList.remove("uk-hidden");
+        navbarMenuMobile.classList.add("uk-hidden@s");
+      } else {
+        hamburgerButton.setAttribute("aria-expanded", "false");
+        navbarMenuMobile.classList.remove("uk-hidden@s");
+        navbarMenuMobile.classList.add("uk-hidden");
+      }
+    });
+  });
+</script>

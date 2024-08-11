@@ -1,0 +1,71 @@
+<%- include('partials/header.ejs', {title: 'Galerie', stylePaths:
+['/plugins/photoswipe/photoswipe.css']}) %> <%- include('partials/navbar.ejs',
+{title: 'Galerie', loggedIn: loggedIn}) %>
+
+<style>
+  img {
+    cursor: pointer;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 640px) {
+    img {
+      width: 125px;
+      height: 125px;
+    }
+  }
+
+  @media screen and (min-width: 640px) and (max-width: 960px) {
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+</style>
+
+<div class="uk-margin uk-margin-left uk-margin-right uk-flex uk-flex-center uk-flex-middle">
+<% if (images.length > 0) { %>
+    <div
+    class="pswp-gallery uk-grid-small uk-flex-center"
+    id="gallery"
+    uk-grid
+    >
+    <% images.forEach(image => { %>
+        <a
+        href="<%= image.src %>"
+        data-pswp-width="<%= image.imageWidth %>"
+        data-pswp-height="<%= image.imageHeight %>"
+        data-cropped="true"
+        target="_blank"
+        >
+        <img
+        src="<%= image.thumbnail %>"
+        alt=""
+        style="
+            object-position: <%= image.thumbnailAlignment === 'top' ? 'top' : image.thumbAlign === 'bottom' ? 'bottom' : 'center' %>;
+            "
+        />
+    </a>
+    <% }) %>
+</div>
+<% } else { %>
+    <p>Keine Bilder vorhanden.</p>    
+<% } %>
+</div>
+
+<script type="module">
+  import PhotoSwipeLightbox from "/plugins/photoswipe/photoswipe-lightbox.esm.js";
+  import PhotoSwipe from "/plugins/photoswipe/photoswipe.esm.js";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#gallery",
+    children: "a",
+    pswpModule: PhotoSwipe,
+  });
+
+  lightbox.init();
+</script>
+
+<%- include('partials/footer.ejs') %>
