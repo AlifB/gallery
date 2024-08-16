@@ -19,6 +19,37 @@
 
 <div class="uk-margin uk-margin-left uk-margin-right">
     <div class="uk-flex uk-flex-middle">
+        <h2 class="uk-margin-remove">Alben</h2><a href="/admin/album/create" class="uk-button uk-button-primary uk-margin-left"><span uk-icon="plus"></span> Album hinzufügen</a>
+    </div>
+    <% if (albums.length > 0) { %>
+    <div class="uk-overflow-auto uk-margin-bottom">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Beschreibung</th>
+                    <th class="uk-table-shrink">Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% albums.forEach(album => { %>
+                <tr>
+                    <td><%= album.title %></td>
+                    <td><%= album.description %></td>
+                    <td>
+                        <% if (album.title.toLowerCase() !== 'public') { %>
+                        <a class="uk-button uk-button-danger delete-btn" data-album-id="<%= album.id %>"><span uk-icon="trash"></span></a>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <% } else { %>
+        <p class="uk-margin-bottom">Keine Alben vorhanden.</p>
+    <% } %>
+    <div class="uk-flex uk-flex-middle">
         <h2 class="uk-margin-remove">Hochgeladene Bilder</h2><a href="/admin/upload" class="uk-button uk-button-primary uk-margin-left"><span uk-icon="upload"></span> Bild hochladen</a>
     </div>
     <% if (images.length > 0) { %>
@@ -27,6 +58,7 @@
             <thead>
                 <tr>
                     <th class="uk-table-shrink">Bild</th>
+                    <th>Album</th>
                     <th>Link</th>
                     <th class="uk-table-shrink">Aktion</th>
                 </tr>
@@ -35,6 +67,7 @@
                 <% images.forEach(image => { %>
                 <tr>
                     <td><div class="img-container"><img src="<%= image.thumbnail %>" style="object-position: <%= image.thumbnailAlignment === 'top' ? 'top' : image.thumbAlign === 'bottom' ? 'bottom' : 'center' %>;"></div></td>
+                    <td><%= image.albums.map(album => album.title).join(', ') %></td>
                     <td class="uk-table-link">
                         <a class="uk-link" href="<%= image.src %>"><%= image.src %></a>
                     </td>
@@ -58,7 +91,16 @@
         deleteButtons.forEach(button => {
             button.addEventListener('click', async () => {
                 const imageId = button.getAttribute('data-image-id');
-                const response = await fetch(`/admin/delete/${imageId}`, {
+                const albumId = button.getAttribute('data-album-id');
+                let url = '';
+
+                if(imageId) {
+                    url = `/admin/delete/${imageId}`;
+                } else if(albumId) {
+                    url = `/admin/album/delete/${albumId}`;
+                }
+
+                const response = await fetch(url, {
                     method: 'DELETE'
                 });
 

@@ -34,14 +34,14 @@
     >
     <% images.forEach(image => { %>
         <a
-        href="<%= image.src %>"
+        href="/<%= image.src %>"
         data-pswp-width="<%= image.imageWidth %>"
         data-pswp-height="<%= image.imageHeight %>"
         data-cropped="true"
         target="_blank"
         >
         <img
-        src="<%= image.thumbnail %>"
+        src="/<%= image.thumbnail %>"
         alt=""
         style="
             object-position: <%= image.thumbnailAlignment === 'top' ? 'top' : image.thumbAlign === 'bottom' ? 'bottom' : 'center' %>;

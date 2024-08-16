@@ -1,0 +1,37 @@
+<%- include('partials/header.ejs', {title: 'Galerie | Admin', stylePaths:
+[]}) %> <%- include('partials/navbar.ejs',
+{title: 'Galerie - Admin Upload', loggedIn: loggedIn}) %>
+
+<div class="uk-margin uk-margin-left uk-margin-right">
+    <div class="uk-flex uk-flex-middle">
+        <h2>Album erstellen</h2>
+    </div>
+    <form action="/admin/album/create" method="post">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="title">Albumtitel*</label><br>
+            <div class="uk-form-controls">
+                <input class="uk-input" type="text" aria-label="Albumtitel" name="title" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="title">Albumbeschreibung</label><br>
+            <div class="uk-form-controls">
+                <textarea class="uk-textarea" aria-label="Albumbeschreibung" name="description" style="min-height: 8rem;"></textarea>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label for="password" class="uk-form-label">Albumpasswort</label>
+            <div class="uk-inline uk-width-1-1">
+                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                <input class="uk-input" type="password" name="password" aria-label="Password">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <div class="uk-form-controls">
+                <input class="uk-input" type="submit" value="Album erstellen">
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include('partials/footer.ejs') %>

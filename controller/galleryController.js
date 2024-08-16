@@ -1,8 +1,20 @@
+const Album = require('../model/album');
 const Image = require('../model/image');
 
 exports.index = async (req, res) => {
     try {
-        const images = await Image.findAll();
+        const images = await Image.findAll({
+            include: {
+                model: Album,
+                as: 'albums',
+                where: {
+                    title: 'Public',
+                },
+                through: {
+                    attributes: [],
+                },
+            }
+        });
         res.render('galleryView', { images, loggedIn: req.cookies.token ? true : false });
     }
     catch (error) {

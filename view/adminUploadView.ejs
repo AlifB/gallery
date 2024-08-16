@@ -8,6 +8,20 @@
     </div>
     <form action="/admin/upload" method="post" enctype="multipart/form-data">
         <div class="uk-margin">
+            <div uk-form-custom="target: > * > span:first-child">
+                <select name="albumId" aria-label="Albumauswahl">
+                    <option value="" selected>Bitte Album auswählen</option>
+                    <% for (const album of albums) { %>
+                    <option value="<%= album.id %>"><%= album.title %></option>
+                    <% } %>
+                </select>
+                <button class="uk-button uk-button-default" type="button" tabindex="-1">
+                    <span></span>
+                    <span uk-icon="icon: chevron-down"></span>
+                </button>
+            </div>
+        </div>
+        <div class="uk-margin">
             <div uk-form-custom>
                 <input type="file" aria-label="Dateiupload" name="image" required>
                 <button class="uk-button uk-button-default" type="button" tabindex="-1">Bild auswählen</button>
