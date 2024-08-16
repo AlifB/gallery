@@ -26,7 +26,7 @@ exports.index = async (req, res) => {
             return res.render('albumPasswordView', { albumId, loggedIn: req.cookies.token ? true : false });
         }
 
-        return res.render('galleryView', { images: album.images, loggedIn: req.cookies.token ? true : false });
+        return res.render('galleryView', { images: album.images, albumTitle: album.title, loggedIn: req.cookies.token ? true : false });
     }
     catch (error) {
         console.error("Error fetching albums:", error);

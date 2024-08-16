@@ -15,7 +15,7 @@ exports.index = async (req, res) => {
                 },
             }
         });
-        res.render('galleryView', { images, loggedIn: req.cookies.token ? true : false });
+        res.render('galleryView', { albumTitle: 'Public', images, loggedIn: req.cookies.token ? true : false });
     }
     catch (error) {
         console.error("Error fetching images:", error);

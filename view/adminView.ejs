@@ -26,6 +26,7 @@
         <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
             <thead>
                 <tr>
+                    <th class="uk-table-shrink">Id</th>
                     <th>Titel</th>
                     <th>Beschreibung</th>
                     <th class="uk-table-shrink">Aktion</th>
@@ -34,7 +35,8 @@
             <tbody>
                 <% albums.forEach(album => { %>
                 <tr>
-                    <td><%= album.title %></td>
+                    <td><%= album.id %></td>
+                    <td><a href="/album/<%= album.id %>"><%= album.title %></a></td>
                     <td><%= album.description %></td>
                     <td>
                         <% if (album.title.toLowerCase() !== 'public') { %>
